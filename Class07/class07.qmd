@@ -1,0 +1,225 @@
+---
+title: "Class 7: Machine Learning"
+author: "Zahra Rashidi (PID:"
+format: "pdf"
+---
+
+## Background
+
+Today we will begin our exloration of important machine learning methods with a focus on **clustering** and **dimensionallity reduction**.
+
+To start testing these methods let's make up some sample data to cluster where we know what the answer should be.  
+
+```{r}
+hi
+```
+```{r}
+hist(rnorm(3000, mean=10))
+```
+
+
+>Q. Can you generate 30 numbers centered at +3 and 30 numbers at -3 
+taken random from a normal distribution?  
+
+
+```{r}
+ tmp<- c(rnorm(30, mean=3),
+      rnorm(30, mean=-3))  
+
+x<- cbind(x=tmp,y=rev(tmp)) 
+plot(x)
+```
+## K-means clustering 
+
+The main function in "base R"for K-means clustering is called 'kmeans()', let's try it out: 
+```{r}
+k<-kmeans(x, centers =2)
+
+```
+>Q. What component of your kmeans results object has the cluster centers?  
+
+```{r}
+k$centers
+```
+>Q. what components of your kmeans result object has the cluster membership vector (i.e the main clustering results: which points are in which cluster)?  
+
+```{r}
+k$size 
+```
+
+>Q.Plot the results of clustering (i.e our data colored by the clustering results )along with the clustering centers.
+
+
+```{r}
+plot (x, col=k$cluster) 
+points(k$centers, col="blue", pch=15, cex=2)
+```
+>Q. Can you run 'kmeans()' again and cluster 'x' into 4 clusters and plot the results just like did above with coloring by cluster and the cluster centers shown un blue? 
+
+```{r}
+k4 <- kmeans(x, centers = 4)
+
+plot(x, col = k4$cluster)
+points(k4$centers, col = "blue", pch = 19, cex = 2)
+```
+
+>** Key-point:** Kmeans will always return the clustering that we ask for (this is the "k" or "centers" in K-means)! 
+
+```{r}
+k$tot.withinss
+```
+
+## Hierechical clustering  
+
+the main function for hierarchical clustering in base R is called 'hclust()'. one of the mian differnces with respect to the base 'kmeans()' function is that you can not just pass your input data directly to 'hclust()' - it needs a "distnace matrix" as input. We can get this from lot's of places including the 'dist()' function. 
+
+```{r}
+d <-dist (x) 
+hc<- hclust(d)
+plot (hc)
+```
+We can cut dendrogram or "tree" given height to yield our "clusters". For this we use the funtion 'cutree'
+
+```{r}
+plot(hc)
+     abline(h=10, col="red") 
+     cutree(hc, h=10) 
+grps <- cutree(hc, h = 10)
+```
+```{r}
+grps
+```
+>Q. Plot our data 'x' colored by the clustering resul from 'hclust()' and 'cutree'? 
+
+
+```{r}
+grps <- cutree(hc, h = 10) 
+plot(x, col=grps)
+```
+
+
+```{r}
+plot(hc)
+     abline(h=4.2, col="red") 
+     cutree(hc, h=4.2) 
+```
+## Principal Component Analysis (PCA)
+
+PCA is a popular dimensionality reduction technique that is widely used in bioinformatics. 
+
+
+### PCA of UK food data 
+
+start the lab sheet 
+
+Read data on food consumption in the UK 
+
+
+```{r}
+url <- "https://tinyurl.com/UK-foods"
+x <- read.csv(url)
+```
+it looks like the row names are not set properly. We can fix this
+
+```{r}
+rownames(x) <- x[,1]
+x <- x[, -1]
+x
+
+```
+
+A better way to do this is fix the raw names assignment at import time: 
+```{r}
+x <- read.csv(url, row.names = 1)
+
+```
+
+> Q1. How many rows and columns are in your new data frame named x? What R functions could you use to answer this questions? 
+
+```{r}
+
+```
+
+
+> Q2. Which approach to solving the ‘row-names problem’ mentioned above do you prefer and why? Is one approach more robust than another under certain circumstances?   
+
+```{r}
+# Using base R
+barplot(as.matrix(x), beside=T, col=rainbow(nrow(x)))
+
+```
+
+
+> Q3: Changing what optional argument in the above barplot() function results in the following plot? 
+
+
+```{r}
+# Currently we have wide format
+dim(x)
+
+```
+
+
+
+> Q4: missing
+
+> Q5: We can use the pairs() function to generate all pairwise plots for our countries. Can you make sense of the following code and resulting figure? What does it mean if a given point lies on the diagonal for a given plot?
+
+
+```{r}
+pairs(x, col=rainbow(nrow(x)), pch=16)
+```
+
+## Heatmap 
+
+We can install the **pheatmap** package with the ' install.packages()' command that we used previously. Remember that we always run thid in the cansole 
+
+Of all of these plot really only the 'pairs()' plot was useful. This however took a bit of work to interpret and will at scale when I am looking at much bigger datasets.  
+
+
+## PCA the rescue 
+The main function in "base R" for PCA is called 'prcamp()'. 
+
+```{r}
+pca <- prcamp( t(x) ) 
+summary(pca)
+```
+
+>Q. how much variance is captured in the first PC? 
+67.4% 
+>Q. how many PC's do i need to capture at leadt 90% of the total varance in the dataset? 
+
+Two Pc's captutr 96.5% of the total variance. 
+
+>Q plot our main PCA results. Folks can call this different thing depending on their filed of study e.g "PC plot", "Ordienation plot" "Score Plot", 
+
+```{r}
+pca$x
+```
+ 
+ 
+ ## Digging deeper (variable loadings)
+ 
+ How do the orginional variables (i.e the 17 differen food) 
+ contribute to our new PCs
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

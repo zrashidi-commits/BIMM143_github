@@ -1,0 +1,99 @@
+---
+title: "class11-"
+format: pdf 
+Author: 
+--- 
+
+**Background**
+We saw last day that the main repository for biomolecular structure (the PDB database) only has ~250,000 entries. UniProtKB (the main protein sequence database) has over 200 million entries!
+
+
+**AlphaFold** 
+
+In this hands-on session we will utilize AlphaFold to predict protein structure from sequence (Jumper et al. 2021). 
+
+Without the aid of such approaches, it can take years of expensive laboratory work to determine the structure of just one protein. With AlphaFold we can now accurately compute a typical protein structure in as little as ten minutes. 
+
+## The EBI AlphaFold Database
+
+The EBI AlphaFold database contains lots of computed structure models. It is increasingly likely that the structure you are interested in is already in this database  
+(<https://alphafold.ebi.ac.uk/>).
+
+There are three major outputs from AlphaFold:
+1. A predicted protein structure in PDB format  
+2. A pLDDT score, which indicates how confident the model is for each residue (values above 70 indicate high confidence)  
+3. A PAE score, which provides information about protein packing quality  
+
+If you cannot find a matching entry for your sequence in the AlphaFold Database, you can run AlphaFold yourself.
+
+## Running AlphaFold
+
+In this lab, we use ColabFold to run AlphaFold on our sequence.
+
+- https://github.com/sokrypton/ColabFold  
+- https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb  
+
+Figure from AlphaFold shown below.
+ 
+ 
+```{r}
+library(png)
+library(grid)
+
+img <- readPNG("class11p.png")
+grid.newpage()
+grid.raster(img)
+```
+```{r}
+img2 <- readPNG("classp2.png")
+grid.newpage()
+grid.raster(img2)
+```
+**Interpreting results** 
+Custom analysis of resulting models We can read all the AlphaFold results into R and do more quantitative analysis than just viewing the structures in Mol-star:
+
+Read all PDB models:
+```{r}
+library(bio3d)
+
+results_dir <- "hivprdimer_23119"
+Pdb_file <-  list.files(path = results_dir,pattern = "*.pdb", full.names = TRUE)
+print(Pdb_file)
+```
+```{r}
+Pdb_file <- list.files(results_dir, pattern="\\.pdb$", full.names=TRUE)
+print(Pdb_file)
+
+```
+```{r}
+results_dir <- "hivpr_23119"
+
+```
+
+```{r}
+list.files(results_dir)
+
+```
+
+```{r}
+Pdb_file <- list.files(results_dir, pattern="\\.pdb$", full.names=TRUE)
+print(Pdb_file)
+```
+```{r}
+
+library(bio3d)
+library(msa)
+library(Biostrings)
+pdbs <- pdbaln(Pdb_file, fit = TRUE, exefile = "msa")
+```
+
+
+```{r}
+rd <- rmsd(pdbs, fit = TRUE)
+rd
+```
+
+```
+
+
+
