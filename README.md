@@ -13,9 +13,8 @@ My classwork for BIMM 143 at UC San Diego
 
 *Introduction material*  
 
-- Class 04 [R Script to PDF format] (class04/class04.qmd)
-
-- Class 05 [Data viz with ggplot](class 05/class05.qmd)
+- Class 04 [R Script to PDF format](class04.pdf)
+- Class 05 [Data viz with ggplot](class05.qmd)
 - Class 06 [R Functions](homework_06.md) 
 - Class 07 [Machine Learning 1](Class7.md)
 - Class 08 [Ml mini project](class08.md)
