@@ -1,4 +1,4 @@
-# Class 08
+# Class08
 Zahra Rashidi (A18561538)
 
 **Background** In today’s class we will apply the methods and techniques
