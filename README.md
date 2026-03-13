@@ -13,7 +13,7 @@ My classwork for [BIMM 143] (https://bioboot.github.io/bimm143_W26/) at UC San D
 - Class 09 [Halloween Mini-Project](class09.md)
 - Class 10 [Structrual Bioinformatics](class10!.md)
 - Class 11 [AlphaFold](Class11.pdf)
-- Class 12 [RNAseq Galaxy](class12.md)
+- Class 12 [RNAseq Galaxy](Class12!.md)
 - Class 13 [DESeq lab](class13.md)
 - Class 14 [DESeq mini project](Class14.md)
 - Class 17 [Analyzing sequencing data in the cloud](class17.md)
