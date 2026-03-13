@@ -9,7 +9,7 @@ My classwork for [BIMM 143] (https://bioboot.github.io/bimm143_W26/) at UC San D
 - Class 05 [Data viz with ggplot](class05.md)
 - Class 06 [R Functions](homework_06.md) 
 - Class 07 [Machine Learning 1](Class7.md)
-- Class 08 [Ml mini project](class08.md)
+- Class 08 [MI mini project](class 08.md)
 - Class 09 [Halloween Mini-Project](class09.md)
 - Class 10 [Structrual Bioinformatics](class10.md)
 - Class 11 [AlphaFold](Class11.pdf)
